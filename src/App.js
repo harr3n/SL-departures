@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import useDebounce from "./hooks/useDebounce";
+import useDebounce from "./lib/useDebounce";
 import searchStations from "./api/searchStations";
 
 import SearchResults from "./components/SearchResults";
@@ -70,23 +70,23 @@ const StyledInput = styled.div`
 `;
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStation, setSelectedStation] = useState(null);
-  const debouncedSearchTerm = useDebounce(searchTerm, 300);
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
+    if (debouncedSearchQuery) {
       setIsLoading(true);
-      searchStations(debouncedSearchTerm).then(res => {
+      searchStations(debouncedSearchQuery).then(res => {
         setIsLoading(false);
         setResults(res);
       });
     } else {
       setResults([]);
     }
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchQuery]);
 
   return (
     <>
@@ -102,8 +102,8 @@ function App() {
             <StyledInput>
               <input
                 type="text"
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
                 placeholder="Sök efter station eller hållplats"
               />
             </StyledInput>

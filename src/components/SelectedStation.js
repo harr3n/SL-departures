@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import getStation from "../api/getStation";
+import getStation from "../lib/getStation";
+import getLineColor from "../lib/getLineColor";
 import { ReactComponent as BusIcon } from "../icons/bus.svg";
 import { ReactComponent as MetroIcon } from "../icons/metro.svg";
 
@@ -33,18 +34,18 @@ const StyledDepartures = styled.ul`
     padding: 0 1rem;
     margin-bottom: 1.5rem;
     border-bottom: 0.5px solid grey;
-
-    .lineNumber {
-      display: inline-block;
-      background-color: red;
-      color: white;
-      min-width: 15px;
-      border-radius: 2px;
-      margin-bottom: 1px;
-      font-size: 0.8rem;
-      text-align: center;
-    }
   }
+`;
+
+const LineNumber = styled.span`
+  display: inline-block;
+  background-color: ${props => props.color};
+  color: white;
+  min-width: 15px;
+  border-radius: 2px;
+  margin-bottom: 1px;
+  font-size: 0.8rem;
+  text-align: center;
 `;
 
 const Station = ({ data, setSelectedStation }) => {
@@ -82,7 +83,9 @@ const Station = ({ data, setSelectedStation }) => {
               ) : (
                 <MetroIcon style={{ height: "20px" }} />
               )}
-              <span className="lineNumber">{departure.LineNumber}</span>
+              <LineNumber color={getLineColor(departure.GroupOfLine)}>
+                {departure.LineNumber}
+              </LineNumber>
               Mot {departure.Destination}
             </div>
             <div> {departure.DisplayTime}</div>
