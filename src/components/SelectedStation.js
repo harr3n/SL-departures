@@ -54,6 +54,7 @@ const LineNumber = styled.div`
   background-color: ${props => props.color};
   color: white;
   min-width: 20px;
+  height: 15px;
   border-radius: 2px;
   margin: 0 0.2rem;
   font-size: 0.8rem;
@@ -91,9 +92,9 @@ const Station = ({ data, setSelectedStation }) => {
           <li key={departure.JourneyNumber}>
             <div className="line">
               {departure.TransportMode === "BUS" ? (
-                <BusIcon style={{ height: "20px" }} />
+                <BusIcon style={{ height: "15px" }} />
               ) : (
-                <MetroIcon style={{ height: "20px" }} />
+                <MetroIcon style={{ height: "15px" }} />
               )}
               <LineNumber color={getLineColor(departure.GroupOfLine)}>
                 {departure.LineNumber}
