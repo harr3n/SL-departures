@@ -27,14 +27,6 @@ const GlobalStyle = createGlobalStyle`
         -webkit-touch-callout: none;
     }
 
-    a {
-        text-decoration: none;
-    }
-
-    fieldset {
-      border: none;
-    }
-
     ul {
       padding: 0;
       margin: 0;
