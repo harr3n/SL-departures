@@ -34,16 +34,28 @@ const StyledDepartures = styled.ul`
     padding: 0 1rem;
     margin-bottom: 1.5rem;
     border-bottom: 0.5px solid grey;
+
+    .line {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .time {
+      font-size: 0.8rem;
+    }
   }
 `;
 
-const LineNumber = styled.span`
-  display: inline-block;
+const LineNumber = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${props => props.color};
   color: white;
-  min-width: 15px;
+  min-width: 20px;
   border-radius: 2px;
-  margin-bottom: 1px;
+  margin: 0 0.2rem;
   font-size: 0.8rem;
   text-align: center;
 `;
@@ -77,7 +89,7 @@ const Station = ({ data, setSelectedStation }) => {
       <StyledDepartures>
         {departures.map(departure => (
           <li key={departure.JourneyNumber}>
-            <div>
+            <div className="line">
               {departure.TransportMode === "BUS" ? (
                 <BusIcon style={{ height: "20px" }} />
               ) : (
@@ -86,9 +98,9 @@ const Station = ({ data, setSelectedStation }) => {
               <LineNumber color={getLineColor(departure.GroupOfLine)}>
                 {departure.LineNumber}
               </LineNumber>
-              Mot {departure.Destination}
+              {departure.Destination}
             </div>
-            <div> {departure.DisplayTime}</div>
+            <div className="time">{departure.DisplayTime}</div>
           </li>
         ))}
       </StyledDepartures>
